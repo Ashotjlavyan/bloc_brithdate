@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:uuid/uuid.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();
@@ -15,15 +16,15 @@ class HomeInitialState extends HomeState {
 }
 
 class HomeOpenTrackState extends HomeState {
-  const HomeOpenTrackState();
+  final String uuid = const Uuid().v4();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [uuid];
 }
 
 class HomeOpenGetPregnantState extends HomeState {
-  const HomeOpenGetPregnantState();
+  final String uuid = const Uuid().v4();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [uuid];
 }

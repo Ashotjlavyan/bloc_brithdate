@@ -1,4 +1,4 @@
-import 'package:bloc_birthdate/screens/birthdate/birthdate_widget.dart';
+import 'package:bloc_birthdate/screens/home/home_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const BirthDateWidget(),
+      home: const HomeWidget(),
     );
   }
 }

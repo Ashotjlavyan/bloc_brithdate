@@ -8,10 +8,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     if (event is HomeOnTapTrackPeriod) {
-      yield const HomeOpenTrackState();
+      yield HomeOpenTrackState();
     }
     if (event is HomeOpenGetPregnantState) {
-      yield const HomeOpenTrackState();
+      yield HomeOpenTrackState();
     }
   }
 }
