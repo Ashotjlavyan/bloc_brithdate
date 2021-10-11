@@ -1,4 +1,3 @@
-import 'package:bloc_birthdate/shared/constant.dart';
 import 'package:bloc_birthdate/shared/widgets/background_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
