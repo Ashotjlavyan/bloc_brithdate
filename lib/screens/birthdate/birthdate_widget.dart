@@ -1,9 +1,14 @@
+import 'package:bloc_birthdate/screens/birthdate/shared/bloc/events.dart';
+import 'package:bloc_birthdate/screens/birthdate/shared/bloc/states.dart';
+import 'package:bloc_birthdate/screens/result/result_widget.dart';
 import 'package:bloc_birthdate/shared/widgets/background_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 
-import 'button_gradient.dart';
+import 'shared/bloc/birth_date_bloc.dart';
+import 'shared/button_gradient.dart';
 
 class BirthDateWidget extends StatefulWidget {
   const BirthDateWidget({Key? key}) : super(key: key);
@@ -13,23 +18,52 @@ class BirthDateWidget extends StatefulWidget {
 }
 
 class _State extends State<BirthDateWidget> {
+  late final BirthDateBloc _birthDateBLoc;
+
+  @override
+  void initState() {
+    _birthDateBLoc = BirthDateBloc(const BirthDateInitialState());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _birthDateBLoc.close();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: BackgroundWidget(
-            child: Container(
-                margin: const EdgeInsets.fromLTRB(30, 150, 30, 0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const _Title(),
-                      Container(
-                          margin: const EdgeInsets.only(top: 100),
-                          child: _BirthDatePicker()),
-                      Container(
-                          margin: const EdgeInsets.only(top: 50),
-                          child: const _NextButton())
-                    ]))));
+            child: BlocProvider<BirthDateBloc>(
+                create: (context) {
+                  return _birthDateBLoc;
+                },
+                child: _render)));
+  }
+
+  Widget get _render => BlocListener<BirthDateBloc, BirthDateState>(
+      listener: _listener,
+      child: BlocBuilder<BirthDateBloc, BirthDateState>(
+          bloc: _birthDateBLoc,
+          builder: (context, state) => Container(
+              margin: const EdgeInsets.fromLTRB(30, 150, 30, 0),
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                const _Title(),
+                Container(
+                    margin: const EdgeInsets.only(top: 100),
+                    child: _BirthDatePicker()),
+                Container(
+                    margin: const EdgeInsets.only(top: 50),
+                    child:
+                        InkWell(child: const _NextButton(), onTap: _onTapNext))
+              ]))));
+
+  void _onTapNext() {
+    _birthDateBLoc.add(const BirthDateTapNext());
   }
 }
 
@@ -110,5 +144,14 @@ class _NextButton extends StatelessWidget {
                                       fontWeight: FontWeight.bold))))),
                   const _ArrowButton()
                 ])));
+  }
+}
+
+extension _BlocListener on _State {
+  void _listener(BuildContext context, BirthDateState state) {
+    if (state is BirthDateOpenState) {
+      Navigator.push(context,
+          CupertinoPageRoute(builder: (context) => const ResultWidget()));
+    }
   }
 }

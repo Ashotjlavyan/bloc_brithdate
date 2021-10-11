@@ -17,10 +17,10 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _State extends State<HomeWidget> {
-  late HomeBloc homeBloc;
+  late final HomeBloc _homeBloc;
   @override
   void initState() {
-    homeBloc = HomeBloc(const HomeInitialState());
+    _homeBloc = HomeBloc(const HomeInitialState());
     super.initState();
   }
 
@@ -28,7 +28,7 @@ class _State extends State<HomeWidget> {
   void dispose() {
     super.dispose();
 
-    homeBloc.close();
+    _homeBloc.close();
   }
 
   @override
@@ -37,7 +37,7 @@ class _State extends State<HomeWidget> {
         body: BackgroundWidget(
             child: BlocProvider<HomeBloc>(
                 create: (context) {
-                  return homeBloc;
+                  return _homeBloc;
                 },
                 child: _render())));
   }
@@ -46,7 +46,7 @@ class _State extends State<HomeWidget> {
     return BlocListener<HomeBloc, HomeState>(
         listener: _listener,
         child: BlocBuilder<HomeBloc, HomeState>(
-            bloc: homeBloc,
+            bloc: _homeBloc,
             builder: (context, state) => Container(
                 margin: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
@@ -62,12 +62,11 @@ class _State extends State<HomeWidget> {
   }
 
   void _onTapTrack() {
-    homeBloc.add(const HomeOnTapTrackPeriod());
+    _homeBloc.add(const HomeOnTapTrackPeriod());
   }
 
   void _onTapPregnante() {
-    print('called');
-    homeBloc.add(const HomeOnTapGetPregant());
+    _homeBloc.add(const HomeOnTapGetPregant());
   }
 }
 
