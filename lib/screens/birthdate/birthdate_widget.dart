@@ -19,7 +19,7 @@ class BirthDateWidget extends StatefulWidget {
 
 class _State extends State<BirthDateWidget> {
   late final BirthDateBloc _birthDateBLoc;
-
+  DateTime _date = DateTime.now();
   @override
   void initState() {
     _birthDateBLoc = BirthDateBloc(const BirthDateInitialState());
@@ -55,7 +55,8 @@ class _State extends State<BirthDateWidget> {
                 const _Title(),
                 Container(
                     margin: const EdgeInsets.only(top: 100),
-                    child: _BirthDatePicker()),
+                    child:
+                        _BirthDatePicker(onChange: (date, _) => _date = date)),
                 Container(
                     margin: const EdgeInsets.only(top: 50),
                     child:
@@ -63,7 +64,7 @@ class _State extends State<BirthDateWidget> {
               ]))));
 
   void _onTapNext() {
-    _birthDateBLoc.add(const BirthDateTapNext());
+    _birthDateBLoc.add(BirthDateTapNext(date: _date));
   }
 }
 
@@ -90,11 +91,16 @@ class _ArrowButton extends StatelessWidget {
 }
 
 class _BirthDatePicker extends StatelessWidget {
+  const _BirthDatePicker({required this.onChange});
+
+  final DateValueCallback? onChange;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         height: 300,
         child: DatePickerWidget(
+            onChange: onChange,
             pickerTheme: const DateTimePickerTheme(
                 showTitle: false,
                 itemHeight: 50,
@@ -150,8 +156,13 @@ class _NextButton extends StatelessWidget {
 extension _BlocListener on _State {
   void _listener(BuildContext context, BirthDateState state) {
     if (state is BirthDateOpenState) {
-      Navigator.push(context,
-          CupertinoPageRoute(builder: (context) => const ResultWidget()));
+      Navigator.push(
+          context,
+          CupertinoPageRoute(
+              builder: (context) => ResultWidget(date: state.date)));
     }
   }
 }
+
+typedef DateValueCallback = Function(
+    DateTime dateTime, List<int> selectedIndex);

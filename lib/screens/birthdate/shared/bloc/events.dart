@@ -5,7 +5,9 @@ abstract class BirthDateEvent extends Equatable {
 }
 
 class BirthDateTapNext extends BirthDateEvent {
-  const BirthDateTapNext();
+  const BirthDateTapNext({required this.date});
+
+  final DateTime date;
 
   @override
   List<Object> get props => [];

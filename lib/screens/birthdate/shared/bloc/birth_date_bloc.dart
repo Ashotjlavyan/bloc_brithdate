@@ -9,7 +9,7 @@ class BirthDateBloc extends Bloc<BirthDateEvent, BirthDateState> {
   @override
   Stream<BirthDateState> mapEventToState(BirthDateEvent event) async* {
     if (event is BirthDateTapNext) {
-      yield const BirthDateOpenState();
+      yield BirthDateOpenState(date: event.date);
     }
   }
 }

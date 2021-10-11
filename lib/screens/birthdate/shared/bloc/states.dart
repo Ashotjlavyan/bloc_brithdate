@@ -15,8 +15,8 @@ class BirthDateInitialState extends BirthDateState {
 }
 
 class BirthDateOpenState extends BirthDateState {
-  const BirthDateOpenState();
-
+  const BirthDateOpenState({required this.date});
+  final DateTime date;
   @override
-  List<Object> get props => [];
+  List<Object> get props => [date];
 }
