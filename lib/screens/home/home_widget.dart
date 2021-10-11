@@ -1,3 +1,4 @@
+import 'package:bloc_birthdate/shared/widgets/background_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'shared/home_item.dart';
@@ -13,12 +14,7 @@ class _State extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-              image: AssetImage('assets/images/background.jpg'),
-              fit: BoxFit.cover,
-            )),
+        body: BackgroundWidget(
             child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
