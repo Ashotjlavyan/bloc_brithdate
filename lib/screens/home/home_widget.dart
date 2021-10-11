@@ -53,20 +53,31 @@ class _State extends State<HomeWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(child: const HomeItem(), onTap: _onTapTrack),
-                      Container(
-                          margin: const EdgeInsets.only(top: 50),
-                          child: const HomeItem())
+                      InkWell(
+                          child: Container(
+                              margin: const EdgeInsets.only(top: 50),
+                              child: const HomeItem()),
+                          onTap: _onTapPregnante)
                     ]))));
   }
 
   void _onTapTrack() {
     homeBloc.add(const HomeOnTapTrackPeriod());
   }
+
+  void _onTapPregnante() {
+    print('called');
+    homeBloc.add(const HomeOnTapGetPregant());
+  }
 }
 
 extension _BlocListener on _State {
   void _listener(BuildContext context, HomeState state) {
-    if (state is HomeOnTapTrackPeriod) {
+    if (state is HomeOpenTrackState) {
+      Navigator.push(context,
+          CupertinoPageRoute(builder: (context) => const BirthDateWidget()));
+    }
+    if (state is HomeOpenGetPregnantState) {
       Navigator.push(context,
           CupertinoPageRoute(builder: (context) => const BirthDateWidget()));
     }

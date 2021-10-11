@@ -10,8 +10,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (event is HomeOnTapTrackPeriod) {
       yield HomeOpenTrackState();
     }
-    if (event is HomeOpenGetPregnantState) {
-      yield HomeOpenTrackState();
+    if (event is HomeOnTapGetPregant) {
+      yield HomeOpenGetPregnantState();
     }
   }
 }
