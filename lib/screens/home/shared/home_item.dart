@@ -10,7 +10,7 @@ class HomeItem extends StatelessWidget {
         decoration: const BoxDecoration(
             color: ColorConstant.buttonColor,
             borderRadius: BorderRadius.all(Radius.circular(16.0))),
-        height: 150,
+        height: 120,
         child: Row(children: [
           Expanded(
               child: Container(
@@ -60,8 +60,8 @@ class _ArrowButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 20,
-      height: 20,
+      width: 25,
+      height: 25,
       margin: const EdgeInsets.only(right: 20.0),
       decoration: const BoxDecoration(
           color: ColorConstant.arrowColor, shape: BoxShape.circle),
